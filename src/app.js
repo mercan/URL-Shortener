@@ -1,6 +1,6 @@
 require("dotenv").config();
 const fastify = require("fastify");
-const useragent = require("useragent");
+const userAgentParser = require("ua-parser-js");
 
 // Database connection
 //require("./helpers/database")();
@@ -13,11 +13,16 @@ function build(opts = {}) {
 
   app.get("/", (req, res) => {
     const user_agent = req.headers["user-agent"];
-    const agent = useragent.parse(user_agent);
+    const ua = userAgentParser(user_agent);
+
+    const browser = ua.browser;
+    const device = ua.device;
+    const os = ua.os;
+
     return {
-      agent: agent.toString(),
-      os: agent.os.toJSON(),
-      device: agent.device.toJSON(),
+      browser: `${browser.name} ${browser.version}`,
+      device: device,
+      os: `${os.name} ${os.version}`,
     };
   });
   return app;
