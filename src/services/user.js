@@ -4,9 +4,10 @@ const tokenCreate = require("../helpers/tokenCreate");
 class UserService {
   async Signup(user) {
     const returnObj = {};
+    let userRecord;
 
     try {
-      var userRecord = await User.create(user);
+      userRecord = await User.create(user);
     } catch (err) {
       return { error: { message: "Email is already in use" } };
     }
