@@ -57,7 +57,7 @@ const getRedirectLink = async (req, res) => {
     });
   }
 
-  const apiURL = `http://ip-api.com/json/95.5.230.236?fields=status,country,city`; // İP ADRESİ EKLEMEYİ UNUTMA REQ.IP
+  const apiURL = `http://ip-api.com/json/${req.ip}?fields=status,country,city`;
   const body = await got(apiURL).json();
   const location = body.status === "success" ? { country: body.country, city: body.city } : {};
   const referrer = req.headers["referrer"];
