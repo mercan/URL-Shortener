@@ -12,7 +12,13 @@ function build(opts = {}) {
   app.register(require("fastify-helmet"));
 
   app.get("/", (req, res) => {
-    return { user_agent: useragent.is(req.headers["user-agent"]) };
+    const user_agent = req.headers["user-agent"];
+    const agent = useragent.parse(user_agent);
+    return {
+      agent: agent.toString(),
+      os: agent.os.toJSON(),
+      device: agent.device.toJSON(),
+    };
   });
   return app;
 }
