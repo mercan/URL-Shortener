@@ -16,7 +16,11 @@ class LinkService {
       }
     );
 
-    return { statusCode: 200, message: "OK" };
+    return {
+      statusCode: 200,
+      message: "OK",
+      url: `https://link-kisalt.herokuapp.com/${linkRecord.link_code}`,
+    };
   }
 
   async findOne(link_code, select) {

@@ -10,7 +10,7 @@ const routes = [
   },
   {
     method: "GET",
-    url: "/link/:link_code",
+    url: "/:link_code",
     handler: LinkController.getRedirectLink,
   },
 ];
