@@ -1,6 +1,7 @@
 require("dotenv").config();
 const fastify = require("fastify");
-const os = require("os");
+const useragent = require("useragent");
+
 // Database connection
 //require("./helpers/database")();
 
@@ -11,7 +12,7 @@ function build(opts = {}) {
   app.register(require("fastify-helmet"));
 
   app.get("/", (req, res) => {
-    return { userInfo: os.userInfo(), headers: req.headers };
+    return { user_agent: useragent.is(req.headers["user-agent"]) };
   });
   return app;
 }
