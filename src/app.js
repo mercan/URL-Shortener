@@ -1,30 +1,24 @@
 require("dotenv").config();
 const fastify = require("fastify");
-const userAgentParser = require("ua-parser-js");
 
-// Database connection
-//require("./helpers/database")();
+//Database connection
+require("./helpers/database")();
 
 function build(opts = {}) {
   const app = fastify(opts);
 
+  app.register(require("fastify-formbody"));
   app.register(require("fastify-compress"));
   app.register(require("fastify-helmet"));
 
-  app.get("/", (req, res) => {
-    const user_agent = req.headers["user-agent"];
-    const ua = userAgentParser(user_agent);
+  // Auth Routes
+  const authRoutes = require("./api/routes/auth");
+  authRoutes.forEach((route) => app.route(route));
 
-    const browser = ua.browser;
-    const device = ua.device;
-    const os = ua.os;
+  // Link routes
+  const linkRoutes = require("./api/routes/link");
+  linkRoutes.forEach((route) => app.route(route));
 
-    return {
-      browser: `${browser.name} ${browser.version}`,
-      device: device,
-      os: `${os.name} ${os.version}`,
-    };
-  });
   return app;
 }
 

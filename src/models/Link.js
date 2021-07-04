@@ -5,25 +5,84 @@ const Link = new Schema(
   {
     creator: {
       _id: false,
-      userID: { type: Schema.Types.ObjectId },
+      userId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+      },
     },
 
-    link_code: { type: String, required: true, unique: true },
+    link: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+
+    link_code: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+
+    total_click: {
+      type: Number,
+      defualt: 0,
+    },
 
     redirect_data: [
       {
-        referrer: { type: String },
-        country: { type: String },
-        os: { type: String },
-        device: {
-          model: { type: String, default: undefined },
-          type: { type: String, default: undefined },
+        referrer: {
+          type: String,
+          default: undefined,
         },
+
+        location: {
+          country: {
+            type: String,
+            default: undefined,
+          },
+
+          city: {
+            type: String,
+            default: undefined,
+          },
+        },
+
+        user_agent: {
+          browser: {
+            type: String,
+            required: true,
+          },
+
+          os: {
+            type: String,
+            required: true,
+          },
+
+          device: {
+            vendor: {
+              type: String,
+              default: undefined,
+            },
+
+            model: {
+              type: String,
+              default: undefined,
+            },
+
+            type: {
+              type: String,
+              default: undefined,
+            },
+          },
+        },
+
         date: { type: Date, default: Date.now() },
       },
     ],
   },
   { timestamps: true }
 );
+
+Link.index({ link_code: 1 });
 
 module.exports = mongoose.model("link", Link);

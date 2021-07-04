@@ -1,8 +1,8 @@
 {
-  "name": "fastify-url-shortener",
+  "name": "url-shortener",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "start": "NODE_ENV=production node ./src/server.js",
     "start:dev": "NODE_ENV=dev nodemon ./src/server.js"
@@ -11,11 +11,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "fastify": "^3.18.1",
     "fastify-compress": "^3.6.0",
+    "fastify-formbody": "^5.0.0",
     "fastify-helmet": "^5.3.1",
+    "fastify-plugin": "^3.0.0",
+    "got": "^11.8.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.2",
-    "ua-parser-js": "^0.7.28"
+    "pino-pretty": "^5.1.0",
+    "ua-parser-js": "^0.7.28",
+    "valid-url": "^1.0.9"
   }
 }
