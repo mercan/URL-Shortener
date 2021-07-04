@@ -29,9 +29,9 @@ const create = async (req, res) => {
 
   const link_code = crypto.randomBytes(4).toString("hex");
   const linkDTO = { ...validation.value, link_code, creator: { userId: req.user.id } };
-  const { statusCode, message } = await LinkService.create(linkDTO);
+  const { statusCode, message, url } = await LinkService.create(linkDTO);
 
-  return res.code(statusCode).send({ statusCode, message });
+  return res.code(statusCode).send({ statusCode, message, url });
 };
 
 const remove = async (req, res) => {};
