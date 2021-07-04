@@ -6,7 +6,7 @@ class UserService {
     const returnObj = {};
 
     try {
-      const userRecord = await User.create(user);
+      var userRecord = await User.create(user);
     } catch (err) {
       return { error: { message: "Email is already in use" } };
     }
