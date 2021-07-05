@@ -1,27 +1,27 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
-  const token = req.headers["authorization"];
+  const bearerHeader = req.headers["authorization"];
 
-  if (!token) {
-    return res.code(400).send({
-      statusCode: 400,
-      message: "Token cannot be empty.",
+  if (!bearerHeader) {
+    return res.code(403).send({
+      code: 403,
+      message: "No token provided!",
     });
   }
 
-  const bearerToken = token.includes("Bearer") ? token.split("Bearer ")[1] : "";
+  const bearer = bearerHeader.split(" ");
+  const bearerToken = bearer[1];
+  req.token = bearerToken;
 
-  jwt.verify(bearerToken, process.env.TOKEN_SECRET_KEY, (err, decode) => {
-    if (err) {
-      return res.code(401).send({
-        statusCode: 401,
-        message: "Token is invalid or expired",
-      });
-    }
-
-    req.token = token;
+  try {
+    const [decode] = [jwt.verify(bearerToken, process.env.TOKEN_SECRET_KEY)];
     req.user = decode;
     next();
-  });
+  } catch (err) {
+    return res.code(401).send({
+      code: 401,
+      message: "Unauthorized!",
+    });
+  }
 };
