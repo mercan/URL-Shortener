@@ -5,11 +5,12 @@ class LinkService {
   async create(linkData) {
     const linkRecord = await Link.create(linkData);
 
-    User.updateOne(
+    await User.updateOne(
       { _id: linkRecord.creator.userId },
       {
         $push: {
           created_links: {
+            linkId: linkRecord._id,
             URL: linkRecord.link,
           },
         },
@@ -28,7 +29,6 @@ class LinkService {
   }
 
   async updateOne(searchQuery, updateQuery) {
-    console.log({ ...searchQuery, removed: false });
     return await Link.updateOne({ ...searchQuery, removed: false }, updateQuery);
   }
 

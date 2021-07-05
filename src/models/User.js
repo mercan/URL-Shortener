@@ -70,6 +70,12 @@ const User = new Schema(
     created_links: [
       {
         _id: false,
+
+        linkId: {
+          type: Schema.Types.ObjectId,
+          required: true,
+        },
+
         URL: {
           type: String,
           required: true,

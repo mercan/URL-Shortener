@@ -8,7 +8,10 @@ const linkCreate = joi
       "any.required": "Link is required",
     }),
   })
-  .unknown(true);
+  .unknown(true)
+  .messages({
+    "object.base": "Must be of type object",
+  });
 
 const linkCode = joi
   .object({
@@ -19,6 +22,9 @@ const linkCode = joi
       "any.required": "Link Code is required",
     }),
   })
-  .unknown(true);
+  .unknown(true)
+  .messages({
+    "object.base": "Must be of type object",
+  });
 
 module.exports = { linkCreate, linkCode };

@@ -24,7 +24,10 @@ const userSignup = joi
       "any.required": "Password is required",
     }),
   })
-  .unknown(true);
+  .unknown(true)
+  .messages({
+    "object.base": "Must be of type object",
+  });
 
 const userSignIn = joi
   .object({
@@ -43,6 +46,9 @@ const userSignIn = joi
       "any.required": "Password is required",
     }),
   })
-  .unknown(true);
+  .unknown(true)
+  .messages({
+    "object.base": "Must be of type object",
+  });
 
 module.exports = { userSignup, userSignIn };
