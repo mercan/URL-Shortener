@@ -23,17 +23,21 @@ class LinkService {
     };
   }
 
-  async findOne(link_code, select) {
-    return await Link.findOne(link_code, select);
+  async findOne(searchQuery, selectedField) {
+    return await Link.findOne({ ...searchQuery, removed: false }, selectedField);
   }
 
-  async addRedirectData(link_code, data) {
-    await Link.updateOne(link_code, {
+  async updateOne(searchQuery, updateQuery) {
+    return await Link.updateOne({ ...searchQuery, removed: false }, updateQuery);
+  }
+
+  async addRedirectData(searchQuery, redirect_data) {
+    await Link.updateOne(searchQuery, {
       $inc: {
         total_click: 1,
       },
       $push: {
-        redirect_data: data,
+        redirect_data,
       },
     });
   }

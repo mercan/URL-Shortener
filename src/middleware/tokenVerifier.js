@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   const token = req.headers["authorization"];
-  let bearerToken;
 
   if (!token) {
     return res.code(400).send({
@@ -11,7 +10,7 @@ module.exports = (req, res, next) => {
     });
   }
 
-  bearerToken = token.includes("Bearer") ? token.split("Bearer ")[1] : "";
+  const bearerToken = token.includes("Bearer") ? token.split("Bearer ")[1] : "";
 
   jwt.verify(bearerToken, process.env.TOKEN_SECRET_KEY, (err, decode) => {
     if (err) {

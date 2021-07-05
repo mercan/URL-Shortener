@@ -28,6 +28,11 @@ const Link = new Schema(
       defualt: 0,
     },
 
+    removed: {
+      type: Boolean,
+      default: false,
+    },
+
     redirect_data: [
       {
         referrer: {
