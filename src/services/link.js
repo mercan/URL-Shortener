@@ -28,6 +28,7 @@ class LinkService {
   }
 
   async updateOne(searchQuery, updateQuery) {
+    console.log({ ...searchQuery, removed: false });
     return await Link.updateOne({ ...searchQuery, removed: false }, updateQuery);
   }
 

@@ -87,7 +87,7 @@ const getRedirectLink = async (req, res) => {
   const referrer = req.headers["referrer"];
   const redirect_data = { referrer, location, ...getUserAgent(user_agent) };
 
-  LinkService.addRedirectData(link_code, redirect_data);
+  LinkService.addRedirectData({ link_code }, redirect_data);
 
   return res.redirect(302, linkData.link);
 };
