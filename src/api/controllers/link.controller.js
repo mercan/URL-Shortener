@@ -70,7 +70,6 @@ const getRedirectLink = async (req, res) => {
     });
   }
 
-  const user_agent = req.headers["user-agent"];
   const { link_code } = validation.value;
   const linkData = await LinkService.findOne({ link_code }, { link: 1 });
 
@@ -81,6 +80,7 @@ const getRedirectLink = async (req, res) => {
     });
   }
 
+  const user_agent = req.headers["user-agent"];
   const apiURL = `http://ip-api.com/json/${req.ip}?fields=status,country,city`;
   const body = await got(apiURL).json();
   const location = body.status === "success" ? { country: body.country, city: body.city } : {};

@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
 
   if (!bearerHeader) {
     return res.code(403).send({
-      code: 403,
+      statusCode: 403,
       message: "No token provided!",
     });
   }
@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
     next();
   } catch (err) {
     return res.code(401).send({
-      code: 401,
+      statusCode: 401,
       message: "Unauthorized!",
     });
   }
